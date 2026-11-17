@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+:root,
+[data-theme='light'] {
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-muted: #eef2f6;
+  --bg-elevated: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+  --accent-primary: #0f52ba;
+  --accent-primary-hover: #0a3d8f;
+  --accent-contrast: #ffffff;
+  --status-free-bg: #dcfce7;
+  --status-free-text: #14532d;
+  --status-free-border: #16a34a;
+  --status-booked-bg: #fee2e2;
+  --status-booked-text: #7f1d1d;
+  --status-booked-border: #dc2626;
+  --status-unknown-bg: #fef3c7;
+  --status-unknown-text: #78350f;
+  --status-unknown-border: #d97706;
+  --now-line: #dc2626;
+  --booked-stripe: rgba(127, 29, 29, 0.14);
+}
+
+[data-theme='dark'] {
+  --bg-page: #0b1120;
+  --bg-surface: #111827;
+  --bg-muted: #1e293b;
+  --bg-elevated: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #a8b8cf;
+  --border-color: #334155;
+  --accent-primary: #60a5fa;
+  --accent-primary-hover: #93c5fd;
+  --accent-contrast: #0b1120;
+  --status-free-bg: #052e16;
+  --status-free-text: #86efac;
+  --status-free-border: #22c55e;
+  --status-booked-bg: #450a0a;
+  --status-booked-text: #fca5a5;
+  --status-booked-border: #ef4444;
+  --status-unknown-bg: #451a03;
+  --status-unknown-text: #fcd34d;
+  --status-unknown-border: #f59e0b;
+  --now-line: #f87171;
+  --booked-stripe: rgba(252, 165, 165, 0.16);
+}
+
+[data-theme='retro'] {
+  --bg-page: #060d08;
+  --bg-surface: #0b160e;
+  --bg-muted: #112115;
+  --bg-elevated: #19301f;
+  --text-primary: #7dff9f;
+  --text-secondary: #62e385;
+  --text-muted: #4dcf70;
+  --border-color: #245732;
+  --accent-primary: #5ef287;
+  --accent-primary-hover: #8affab;
+  --accent-contrast: #061108;
+  --status-free-bg: #0c2613;
+  --status-free-text: #85ffa5;
+  --status-free-border: #36c95e;
+  --status-booked-bg: #291007;
+  --status-booked-text: #ffb894;
+  --status-booked-border: #e0632f;
+  --status-unknown-bg: #261f06;
+  --status-unknown-text: #ffe07d;
+  --status-unknown-border: #d4a31c;
+  --now-line: #ff7a59;
+  --booked-stripe: rgba(255, 184, 148, 0.18);
+}
+
+[data-theme='pastel'] {
+  --bg-page: #fdf8f5;
+  --bg-surface: #fffcfa;
+  --bg-muted: #f3eae5;
+  --bg-elevated: #e9dcd4;
+  --text-primary: #2b1e28;
+  --text-secondary: #473443;
+  --text-muted: #594254;
+  --border-color: #dbc8bf;
+  --accent-primary: #7a3668;
+  --accent-primary-hover: #5e2750;
+  --accent-contrast: #ffffff;
+  --status-free-bg: #e2f5ea;
+  --status-free-text: #164a2f;
+  --status-free-border: #4d9e73;
+  --status-booked-bg: #fce4ea;
+  --status-booked-text: #701a33;
+  --status-booked-border: #c95776;
+  --status-unknown-bg: #fcf0d9;
+  --status-unknown-text: #633e09;
+  --status-unknown-border: #c48527;
+  --now-line: #b52b52;
+  --booked-stripe: rgba(112, 26, 51, 0.14);
+}
+
+[data-theme='tram'] {
+  --bg-page: #edf4fc;
+  --bg-surface: #ffffff;
+  --bg-muted: #e1eefb;
+  --bg-elevated: #cbe0f7;
+  --text-primary: #072142;
+  --text-secondary: #153863;
+  --text-muted: #224775;
+  --border-color: #a3c4ea;
+  --accent-primary: #004da0;
+  --accent-primary-hover: #003978;
+  --accent-contrast: #ffffff;
+  --status-free-bg: #dcfce7;
+  --status-free-text: #0f4d2a;
+  --status-free-border: #15803d;
+  --status-booked-bg: #fee2e2;
+  --status-booked-text: #7f1d1d;
+  --status-booked-border: #dc2626;
+  --status-unknown-bg: #fef3c7;
+  --status-unknown-text: #6e3007;
+  --status-unknown-border: #d97706;
+  --now-line: #d91e2a;
+  --booked-stripe: rgba(127, 29, 29, 0.14);
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-theme='retro'] body {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+}
+
+/* Consistent high-contrast keyboard focus outline across all 5 themes */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Striped background for booked blocks so timeline never relies on colour alone */
+.timeline-booked-block {
+  background-color: var(--status-booked-bg);
+  color: var(--status-booked-text);
+  border: 1px solid var(--status-booked-border);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 5px,
+    var(--booked-stripe) 5px,
+    var(--booked-stripe) 10px
+  );
+}
+
+.timeline-free-block {
+  background-color: var(--status-free-bg);
+  color: var(--status-free-text);
+  border: 1px dashed var(--status-free-border);
+}

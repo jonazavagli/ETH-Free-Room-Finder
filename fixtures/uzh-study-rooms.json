@@ -1,0 +1,40 @@
+{
+  "sourceUrl": "https://www.campuskultur.uzh.ch/en/campusnutzung-und-bewilligungen/raeume/weitere-raeume/studentische-lernraeume.html",
+  "capturedAt": "2026-11-16T15:51:57+01:00",
+  "campuses": [
+    {
+      "campus": "Zentrum",
+      "rooms": [
+        { "name": "KOL Foyer West", "building": "KOL" },
+        { "name": "KOL H-Geschoss (Tables in the hallway)", "building": "KOL", "floor": "H" },
+        { "name": "KOL K-3/4", "building": "KOL", "floor": "K", "room": "3/4" },
+        { "name": "KOL L-2/3", "building": "KOL", "floor": "L", "room": "2/3" },
+        { "name": "HAH E-12 (Common room)", "building": "HAH", "floor": "E", "room": "12" },
+        { "name": "RAA D-29", "building": "RAA", "floor": "D", "room": "29" }
+      ]
+    },
+    {
+      "campus": "Irchel",
+      "rooms": [
+        { "name": "Gallery Lichthof", "building": "Y24" },
+        { "name": "Y13 H-Hallway", "building": "Y13", "floor": "H" },
+        { "name": "Y13 M-Foyer", "building": "Y13", "floor": "M" },
+        { "name": "Y15 G-Hallway", "building": "Y15", "floor": "G" },
+        { "name": "Y16 G-Foyer", "building": "Y16", "floor": "G" },
+        { "name": "Y17 Staircase", "building": "Y17" },
+        { "name": "Y36 Staircase", "building": "Y36" },
+        { "name": "Green Kitchen Lab - availability is signposted", "building": "Y" }
+      ]
+    },
+    {
+      "campus": "Oerlikon",
+      "rooms": [
+        { "name": "AFL Olivenhalle", "building": "AFL" },
+        { "name": "AFL E-024", "building": "AFL", "floor": "E", "room": "024" },
+        { "name": "AFL E-028", "building": "AFL", "floor": "E", "room": "028" },
+        { "name": "BIN 0 E.01", "building": "BIN", "floor": "E", "room": "0.E.01" },
+        { "name": "BIN 0 E.11", "building": "BIN", "floor": "E", "room": "0.E.11" }
+      ]
+    }
+  ]
+}

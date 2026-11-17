@@ -1,0 +1,100 @@
+{
+  "data": [
+    {
+      "type": "room_availability",
+      "id": "BSSD65.3",
+      "attributes": {
+        "roomGlobalIdentifier": "BSSD65.3",
+        "floor": "D",
+        "status": "unknown"
+      }
+    },
+    {
+      "type": "room_availability",
+      "id": "CABF31",
+      "attributes": {
+        "roomGlobalIdentifier": "CABF31",
+        "floor": "F",
+        "occupancy": 24,
+        "maxPeople": 24,
+        "occupancyPercentage": 100,
+        "timestamp": "2026-11-16T15:40:20.171527+01:00",
+        "elionaAssetId": 4690,
+        "status": "red",
+        "trend": "steady",
+        "activeFlag": true
+      }
+    },
+    {
+      "type": "room_availability",
+      "id": "CABH41",
+      "attributes": {
+        "roomGlobalIdentifier": "CABH41",
+        "floor": "H",
+        "occupancy": 29,
+        "maxPeople": 200,
+        "occupancyPercentage": 20,
+        "timestamp": "2026-11-16T15:40:20.390347+01:00",
+        "elionaAssetId": 6556,
+        "status": "green",
+        "trend": "steady",
+        "activeFlag": true
+      }
+    },
+    {
+      "type": "room_availability",
+      "id": "HILE2.1",
+      "attributes": {
+        "roomGlobalIdentifier": "HILE2.1",
+        "floor": "E",
+        "occupancy": 59,
+        "maxPeople": 114,
+        "occupancyPercentage": 60,
+        "timestamp": "2026-11-16T15:40:20.400253+01:00",
+        "elionaAssetId": 6559,
+        "status": "yellow",
+        "trend": "steady",
+        "activeFlag": true
+      }
+    },
+    {
+      "type": "room_availability",
+      "id": "HPHG10.0029",
+      "attributes": {
+        "roomGlobalIdentifier": "HPHG10.0029",
+        "floor": "G",
+        "occupancy": 30,
+        "maxPeople": 42,
+        "occupancyPercentage": 80,
+        "timestamp": "2026-11-16T15:40:20.359057+01:00",
+        "elionaAssetId": 4692,
+        "status": "red",
+        "trend": "filling",
+        "activeFlag": true
+      }
+    },
+    {
+      "type": "room_availability",
+      "id": "HILG15",
+      "attributes": {
+        "roomGlobalIdentifier": "HILG15",
+        "floor": "G",
+        "occupancy": 0,
+        "maxPeople": 185,
+        "occupancyPercentage": 0,
+        "timestamp": "2026-11-16T15:40:20.297833+01:00",
+        "elionaAssetId": 4693,
+        "status": "green",
+        "trend": "steady",
+        "activeFlag": true
+      }
+    }
+  ],
+  "meta": {
+    "resultsTotal": 112,
+    "resultsOnPage": 112,
+    "pageSize": 10,
+    "page": 1,
+    "pagesTotal": 12
+  }
+}

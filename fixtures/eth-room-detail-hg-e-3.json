@@ -1,0 +1,436 @@
+{
+  "id": "HG E 003",
+  "nameWithoutLeadingZeros": "HG E 3",
+  "location": {
+    "area": "Z",
+    "areaDesc": "Zürich Zentrum",
+    "region": "Z",
+    "regionDesc": "Zürich"
+  },
+  "building": "HG",
+  "floor": "E",
+  "room": "3",
+  "description": null,
+  "infoText": null,
+  "tabs": [
+    {
+      "title": "Übersicht",
+      "overview": true,
+      "attributes": [
+        {
+          "name": "RAUM.OBJ",
+          "label": "Gebäude",
+          "value": "HG",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "RAUM.ETAGE",
+          "label": "Geschoss",
+          "value": "E",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "RAUM.TYP",
+          "label": "Raumtyp",
+          "value": "Hoersaal",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "PL.SITZ.SITZPL",
+          "label": "Sitzplätze",
+          "value": "243",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "PL.SITZ.SITZPLZU",
+          "label": "Zusätzliche Sitzplätze",
+          "value": "22",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "PL.SITZ.BESTU",
+          "label": "Bestuhlung",
+          "value": "Bestuhlung fest",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "RAUM.BODENFL",
+          "label": "Bodenfläche",
+          "value": "248.95 m²",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "RAUM.BODEN",
+          "label": "Bodenform",
+          "value": "Fussboden abgestuft (Hörsaal, Treppe)",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "RAUM.NUTZHOEHE",
+          "label": "Nutzhöhe",
+          "value": "6.1 m",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "PL.SITZ.ZINFO",
+          "label": "Anzahl der Sitzplätze",
+          "value": "legt die maximal zulässige Anzahl der Teilnehmenden fest",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "ISC.HG",
+          "label": "Info + Service Center (ISC)",
+          "value": "ISC HG (fs_gmz_hg_isc@ethz.ch)",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "Gebäudebereich HG de/en ",
+          "label": "Gebäudezuständigkeit",
+          "value": null,
+          "isAttachment": true,
+          "altText": "Gebäudebereich HG de/en ",
+          "attachmentId": 784482
+        },
+        {
+          "name": "PRUEF.PL.FEST",
+          "label": "Prüfungsplätze für schriftliche Prüfungen",
+          "value": "42 (empfohlen)",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.FENSTER.NO",
+          "label": "Fenster",
+          "value": "nicht vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "NUTZ.FOOD.NO",
+          "label": "Essen und Trinken im Raum",
+          "value": "nicht gestattet",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        }
+      ],
+      "tableHeaders": {
+        "left": "Ressourcen",
+        "right": "Details"
+      },
+      "attachments": null
+    },
+    {
+      "title": "Raumausstattung",
+      "overview": null,
+      "attributes": [
+        {
+          "name": "VIS.TAF.BB.EL",
+          "label": "Schwarze Wandtafel",
+          "value": "elektrisch 18 m²",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.MOBL.PROJ",
+          "label": "Projektionskorpus",
+          "value": "vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.PROJFL",
+          "label": "Projektionsfläche",
+          "value": "3",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.MOBL.DOZPLT",
+          "label": "Dozierenden-Pult",
+          "value": "vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.STROMWENIG",
+          "label": "Steckdosen",
+          "value": "wenig",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.ZUS",
+          "label": "Sonstiges",
+          "value": "Konzertflügel vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        }
+      ],
+      "tableHeaders": {
+        "left": "Ressourcen",
+        "right": "Details"
+      },
+      "attachments": null
+    },
+    {
+      "title": "Multimedia",
+      "overview": null,
+      "attributes": [
+        {
+          "name": "VIS.PROJ.BEAM.HD",
+          "label": "Beamer",
+          "value": "max. Auflösung Full HD: 1920x1080",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "VIS.PROJ.VIS.HD",
+          "label": "Dokumentenkamera",
+          "value": "Full HD  1920x1080",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.ANSCHL.VID.HDMI",
+          "label": "Anschlüsse HDMI",
+          "value": "2",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.WIRELESS",
+          "label": "Wireless Presenter (Solstice)",
+          "value": "vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUD.LAUTSP.PCMIK",
+          "label": "Lautsprecheranlage",
+          "value": "für Mikrofone und Computeraudio",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUD.MIK",
+          "label": "Mikrofone im Saal",
+          "value": "2",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUD.MIK.MAX",
+          "label": "Maximal mögliche Mikrofone drahtlos",
+          "value": "4",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUD.MIK.Z.ABH.Z",
+          "label": "Zusatzmikrofone",
+          "value": "bestellen bei ID INFRA MMT Zentrum",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUFZ.DIGITAL",
+          "label": "Aufzeichnung",
+          "value": "Projektion (inkl. Dokumentkamera)",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "AUS.AUFZ.TAFEL.AUTO",
+          "label": "Aufzeichnung",
+          "value": "automatische fixe Kamera für Tafel",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "KOM.VIDEOKONF.HOER",
+          "label": "Hörsaalübertragung",
+          "value": "vorhanden",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "KOM.WEB.AUDIO",
+          "label": "Webconferencing (BYOD)",
+          "value": "nur Audio",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        }
+      ],
+      "tableHeaders": {
+        "left": "Ressourcen",
+        "right": "Details"
+      },
+      "attachments": null
+    },
+    {
+      "title": "Barrierefreiheit",
+      "overview": null,
+      "attributes": [
+        {
+          "name": "HIFR.ZUG.RST",
+          "label": "Zugang",
+          "value": "rollstuhlzugänglich",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "HIFR.AUSST.PLATZVO",
+          "label": "Platz mit Rollstuhlzugang",
+          "value": "vorhanden, in der vordersten Reihe",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "HIFR.AUD.INFR",
+          "label": "Unterstützung für Menschen mit Hörbehinderung",
+          "value": "Infrarot",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "HIFR.AUD.ABH.Z",
+          "label": "Empfangsgerät für hörbeeinträchtigte Personen",
+          "value": "bei der Gruppe MMT HG D 26.2 abholen",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        },
+        {
+          "name": "HIFR.ZUS.ZUGBISR1",
+          "label": "Sonstiges",
+          "value": "mit Rollstuhl nur bis zur vordersten Reihe möglich",
+          "isAttachment": false,
+          "altText": null,
+          "attachmentId": null
+        }
+      ],
+      "tableHeaders": {
+        "left": "Ressourcen",
+        "right": "Details"
+      },
+      "attachments": null
+    },
+    {
+      "title": null,
+      "overview": null,
+      "attributes": null,
+      "tableHeaders": null,
+      "attachments": {
+        "images": [
+          {
+            "id": 650301,
+            "filename": "HG_E_3_3.jpg",
+            "version": 100,
+            "altText": "Vorlesungssaal von vorne links, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Bildschirm hinten rechts, Projektionskorpus hinten links, Stehpult mit Mikrofon vorne. ",
+            "type": "IMAGE"
+          },
+          {
+            "id": 650299,
+            "filename": "HG_E_3_1.jpg",
+            "version": 101,
+            "altText": "Vorlesungssaal von vorne mittig, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Bildschirm hinten rechts, Projektionskorpus hinten mittig. ",
+            "type": "IMAGE"
+          },
+          {
+            "id": 650300,
+            "filename": "HG_E_3_2.jpg",
+            "version": 102,
+            "altText": "Vorlesungssaal von vorne rechts, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Bildschirm hinten rechts, Projektionskorpus hinten mittig, abgedeckter Flügel vorne rechts. ",
+            "type": "IMAGE"
+          },
+          {
+            "id": 650302,
+            "filename": "HG_E_3_4.jpg",
+            "version": 103,
+            "altText": "Vorlesungssaal von hinten rechts, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Projektionskorpus links, Stehpult und Tisch mit vier Stühlen vorne, dahinter schwarze Wandtafel, Projektionsfläche vorne links, davor Flügel und 2 Hellraumprojektoren. ",
+            "type": "IMAGE"
+          },
+          {
+            "id": 650303,
+            "filename": "HG_E_3_5.jpg",
+            "version": 104,
+            "altText": "Vorlesungssaal von hinten mittig, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Stehpult und Tisch mit vier Stühlen vorne, dahinter schwarze Wandtafel, Projektionsfläche vorne links, davor Flügel und 2 Hellraumprojektoren, Tür rechts. ",
+            "type": "IMAGE"
+          },
+          {
+            "id": 650304,
+            "filename": "HG_E_3_6.jpg",
+            "version": 105,
+            "altText": "Vorlesungssaal von hinten links, Reihenbestuhlung aus Holz, nach hinten ansteigend, Klappsitze, weisse Wände, dunkler Boden, Stehpult und Tisch mit vier Stühlen vorne, dahinter schwarze Wandtafel, Projektionsfläche vorne links, davor Flügel und 2 Hellraumprojektoren, Tür rechts. ",
+            "type": "IMAGE"
+          }
+        ],
+        "documents": [],
+        "all": []
+      }
+    }
+  ],
+  "rectorateResponsibility": "1",
+  "responsible": {
+    "nameDe": "Raumplanung",
+    "nameEn": "Room Scheduling Office",
+    "unit": "Abteilung Akademische Dienste (AkD)",
+    "email": "raumreservation@ethz.ch",
+    "phone": "+41 44 632 20 69"
+  },
+  "orgunits": [
+    {
+      "name": "Unterrichtsräume Rektorat",
+      "responsibleUrlText": null,
+      "responsibleUrl": null,
+      "orgunit": "09188",
+      "responsiblePerson": "RV_001"
+    }
+  ]
+}

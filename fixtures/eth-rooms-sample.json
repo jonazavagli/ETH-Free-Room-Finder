@@ -1,0 +1,24 @@
+[
+  {
+    "additionalSeats": 6,
+    "area": "H",
+    "building": "HIL",
+    "description": null,
+    "floor": "E",
+    "id": "HIL E 003",
+    "infoText": null,
+    "location": {
+      "area": null,
+      "areaDesc": "Zürich Hönggerberg",
+      "region": null,
+      "regionDesc": "Zürich"
+    },
+    "locationName": "Zürich Hönggerberg",
+    "region": "Z",
+    "room": "3",
+    "seats": "256",
+    "type": "Hörsaal",
+    "typecode": "3430",
+    "workplaces": null
+  }
+]

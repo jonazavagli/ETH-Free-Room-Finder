@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Raumausstattung",
+    "id": "room-equipment",
+    "groups": [
+      {
+        "title": "Dozierenden-Pult",
+        "name": "lecturers-desk",
+        "attributes": [
+          {
+            "title": "Dozierenden-Pult | vorhanden",
+            "name": "AUS.MOBL.DOZPLT"
+          }
+        ],
+        "subgroups": null
+      },
+      {
+        "title": "Flexibles Mobiliar",
+        "name": "flexible-furniture",
+        "attributes": [
+          {
+            "title": "Flexibles Mobiliar | vorhanden",
+            "name": "AUS.MOBL.FLEX"
+          }
+        ],
+        "subgroups": null
+      }
+    ]
+  },
+  {
+    "title": "Barrierefreiheit",
+    "id": "accessibility",
+    "groups": [
+      {
+        "title": "Höhenverstellbare Schreibtische mit Rollstuhlzugang",
+        "name": "desks-for-wheelchair",
+        "attributes": [
+          {
+            "title": "Höhenverstellbare Schreibtische mit Rollstuhlzugang",
+            "name": "HIFR.AUSST.TISCH"
+          }
+        ],
+        "subgroups": null
+      },
+      {
+        "title": "Rollstuhlgängig",
+        "name": "wheelchair-accessible",
+        "attributes": [
+          {
+            "title": "Zugang | rollstuhlzugänglich",
+            "name": "HIFR.ZUG.RST"
+          },
+          {
+            "title": "Zugang | teilweise rollstuhlzugänglich",
+            "name": "HIFR.ZUG.RST.TEILW"
+          }
+        ],
+        "subgroups": null
+      }
+    ]
+  }
+]

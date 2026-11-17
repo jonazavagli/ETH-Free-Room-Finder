@@ -1,0 +1,47 @@
+{
+  "filtersettings": [
+    {
+      "Description": " Zentrum",
+      "Id": 24885,
+      "IsFavorit": false
+    },
+    {
+      "Description": "Irchel",
+      "Id": 22059,
+      "IsFavorit": false
+    },
+    {
+      "Description": "Oerlikon",
+      "Id": 15325,
+      "IsFavorit": false
+    },
+    {
+      "Description": "Plakataushang",
+      "Id": 15244,
+      "IsFavorit": false
+    }
+  ],
+  "calendarInfoZentrum": {
+    "AngebotIds": [0],
+    "ShowAllReservation": true,
+    "ShowLuS": false,
+    "ShowVaL": false,
+    "ShowEquipmentNotes": false,
+    "ShowNoEquipment": false,
+    "Beginn": "2026-06-03T22:00:00Z",
+    "CalendarMode": 0,
+    "DisplayFullDay": false,
+    "DisplayMultiline": false,
+    "DisplayZoom": 0,
+    "TimelinePosition": 0,
+    "MultiSelectionAndOr": false,
+    "ShowAnlass": false,
+    "ShowBestellung": false,
+    "ShowSerie": false,
+    "ShowSubreservationEquipment": false,
+    "ShowSubreservationParkplatz": false,
+    "ShowSubreservationRaum": false,
+    "ShowCheckedIn": false,
+    "AutoRefresh": 0
+  }
+}
