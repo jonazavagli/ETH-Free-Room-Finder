@@ -27,7 +27,7 @@ import {
   RoomType,
 } from '@/types/domain';
 import { evaluateFreeRooms } from '@/lib/free-rooms';
-import { getZurichHHMM } from '@/lib/time';
+import { getZurichDateYYYYMMDD, getZurichHHMM } from '@/lib/time';
 import { useSettings } from './SettingsProvider';
 import { TimelineView } from './TimelineView';
 import { MapView } from './MapView';
@@ -230,14 +230,16 @@ export function FreeRoomFinderApp() {
           }
         }
       } catch {
-        // Offline fallback: read last saved payload from localStorage
+        // Offline fallback: read last saved payload from localStorage only if from today in Zurich
         try {
           const raw = localStorage.getItem(STORAGE_CACHE_KEY);
           if (raw) {
             const cached = JSON.parse(raw) as ApiRoomsPayload;
-            setPayload(cached);
-            loadedStaleFlagRef.current = simulateStale;
-            setIsOfflineCache(true);
+            if (cached.zurichDateYYYYMMDD === getZurichDateYYYYMMDD(Date.now())) {
+              setPayload(cached);
+              loadedStaleFlagRef.current = simulateStale;
+              setIsOfflineCache(true);
+            }
           }
         } catch {
           // Ignore
@@ -257,6 +259,20 @@ export function FreeRoomFinderApp() {
   useEffect(() => {
     void fetchRoomsData(filters.simulateStale);
   }, [fetchRoomsData, filters.simulateStale]);
+
+  // Refresh catalog silently if an open phone tab wakes up on a new day or after >10 minutes
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') return;
+      const todayZurich = getZurichDateYYYYMMDD(Date.now());
+      const ageMs = payload?.cachedAtIso ? Date.now() - Date.parse(payload.cachedAtIso) : Infinity;
+      if (!payload || payload.zurichDateYYYYMMDD !== todayZurich || ageMs > 10 * 60_000) {
+        void fetchRoomsData(filters.simulateStale);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, [fetchRoomsData, filters.simulateStale, payload]);
 
   // Sync filters to URL and localStorage when searching or changing filters after search
   const syncFiltersToUrlAndStorage = useCallback((nextFilters: FilterState, searched: boolean) => {
@@ -317,8 +333,19 @@ export function FreeRoomFinderApp() {
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSearchTimestampIso(new Date().toISOString());
-    if (!payload || loadedStaleFlagRef.current !== filters.simulateStale) {
+    const nowIso = new Date().toISOString();
+    setSearchTimestampIso(nowIso);
+    const todayZurich = getZurichDateYYYYMMDD(nowIso);
+    const cacheAgeMs = payload?.cachedAtIso
+      ? Date.now() - Date.parse(payload.cachedAtIso)
+      : Infinity;
+    const needsFreshFetch =
+      !payload ||
+      loadedStaleFlagRef.current !== filters.simulateStale ||
+      payload.zurichDateYYYYMMDD !== todayZurich ||
+      cacheAgeMs > 10 * 60_000;
+
+    if (needsFreshFetch) {
       setIsSearching(true);
       await fetchRoomsData(filters.simulateStale);
       setIsSearching(false);

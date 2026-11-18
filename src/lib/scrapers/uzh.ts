@@ -345,7 +345,7 @@ export function parseUzh3vroomsTitle(rawTitle: string): ParsedUzhRoomTitle {
     lower.includes('parkplatz') ||
     lower.includes('foyer') ||
     lower.includes('lichthof') ||
-    lower.startsWith('mensa');
+    lower.includes('mensa');
 
   // Extract seat count e.g. "(442 Plätze)" or "(280 / mit Emporen 359 Plätze )" or "(80 Stehplätze/ 60 Sitzplätze)"
   let capacity: number | null = null;

@@ -96,13 +96,10 @@ export default function RoomDetailPage() {
     setLoading(true);
     const deviceToken = getOrCreateDeviceToken();
 
-    Promise.all([
-      fetch(`/api/rooms/${encodeURIComponent(decodeURIComponent(rawId))}`, {
-        headers: { 'x-device-token': deviceToken },
-      }),
-      fetch('/api/occupancy').catch(() => null),
-    ])
-      .then(async ([res, occRes]) => {
+    fetch(`/api/rooms/${encodeURIComponent(decodeURIComponent(rawId))}`, {
+      headers: { 'x-device-token': deviceToken },
+    })
+      .then(async (res) => {
         const json = (await res.json()) as RoomDetailApiPayload;
         if (!res.ok || !json.ok) {
           throw new Error(json.error || `HTTP ${res.status}`);
@@ -113,23 +110,30 @@ export default function RoomDetailPage() {
           setCommunityPhotos(json.communityPhotos ?? []);
           setMyVotes(json.myVotes ?? {});
           setError(null);
-          if (occRes && occRes.ok && json.room.live_occupancy_key) {
-            const occJson = (await occRes.json()) as {
-              ok: boolean;
-              occupancyByKey?: Record<string, LiveOccupancyItem>;
-            };
-            const item = occJson.occupancyByKey?.[json.room.live_occupancy_key] ?? null;
-            setLiveOccupancy(item);
+          setLoading(false);
+
+          const occKey = json.room.live_occupancy_key;
+          if (occKey) {
+            fetch('/api/occupancy')
+              .then(async (occRes) => {
+                if (!occRes.ok) return;
+                const occJson = (await occRes.json()) as {
+                  ok: boolean;
+                  occupancyByKey?: Record<string, LiveOccupancyItem>;
+                };
+                if (active) {
+                  setLiveOccupancy(occJson.occupancyByKey?.[occKey] ?? null);
+                }
+              })
+              .catch(() => undefined);
           }
         }
       })
       .catch((err) => {
         if (active) {
           setError(err instanceof Error ? err.message : String(err));
+          setLoading(false);
         }
-      })
-      .finally(() => {
-        if (active) setLoading(false);
       });
     return () => {
       active = false;

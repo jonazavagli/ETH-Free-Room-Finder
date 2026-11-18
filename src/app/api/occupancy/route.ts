@@ -58,6 +58,22 @@ export async function GET(): Promise<NextResponse> {
       }
     );
   } catch (err) {
+    if (cachedOccupancy) {
+      return NextResponse.json(
+        {
+          ok: true,
+          cached: true,
+          staleFallback: true,
+          fetchedAtIso: cachedOccupancy.fetchedAtIso,
+          occupancyByKey: cachedOccupancy.itemsByKey,
+        },
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          },
+        }
+      );
+    }
     const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }

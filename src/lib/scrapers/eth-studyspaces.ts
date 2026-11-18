@@ -702,6 +702,7 @@ export async function fetchEthStudySpacesAvailability(): Promise<{
       'User-Agent': getPoliteUserAgent(),
       Accept: 'application/json',
     },
+    signal: AbortSignal.timeout(8000),
     next: { revalidate: 300 }, // 5-minute server cache
   });
 

@@ -2,7 +2,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { fetchEthRoomAllocations, fetchEthRoomsList, sleep } from './eth';
 import { fetchEthStudySpacesAvailability } from './eth-studyspaces';
 import { addDaysYYYYMMDD, getZurichDateYYYYMMDD, zurichLocalToIso } from '@/lib/time';
-import { Booking, Building } from '@/types/domain';
+import { Booking, Building, RoomOfficialDetails } from '@/types/domain';
 
 export interface EthScrapeBatchOptions {
   batchSize?: number;
@@ -55,10 +55,10 @@ export async function syncEthCatalogToDatabase(
     }
   }
 
-  // Fetch existing rooms so we don't overwrite schedule_status / last_scraped_at
+  // Fetch existing rooms so we don't overwrite schedule_status, last_scraped_at, or cached official_details
   const { data: existingRooms, error: exErr } = await supabase
     .from('rooms')
-    .select('id, schedule_status, last_scraped_at')
+    .select('id, schedule_status, last_scraped_at, official_details')
     .eq('institution', 'ETH');
 
   if (exErr) {
@@ -67,12 +67,17 @@ export async function syncEthCatalogToDatabase(
 
   const existingMap = new Map<
     string,
-    { schedule_status: string; last_scraped_at: string | null }
+    {
+      schedule_status: string;
+      last_scraped_at: string | null;
+      official_details: RoomOfficialDetails | null;
+    }
   >();
   for (const r of existingRooms ?? []) {
     existingMap.set(r.id as string, {
       schedule_status: r.schedule_status as string,
       last_scraped_at: r.last_scraped_at as string | null,
+      official_details: (r.official_details as RoomOfficialDetails | null) ?? null,
     });
   }
 
@@ -84,6 +89,11 @@ export async function syncEthCatalogToDatabase(
       const matchingStudySpace = studySpaceByRoomId.get(r.id);
       return {
         ...r,
+        official_details: {
+          ...(matchingStudySpace?.official_details ?? {}),
+          ...r.official_details,
+          ...(existing?.official_details ?? {}),
+        },
         live_occupancy_key: matchingStudySpace?.live_occupancy_key ?? r.live_occupancy_key,
         schedule_status: existing ? existing.schedule_status : r.schedule_status,
         last_scraped_at: existing ? existing.last_scraped_at : r.last_scraped_at,
@@ -92,10 +102,17 @@ export async function syncEthCatalogToDatabase(
     }),
     ...studySpacesRes.rooms
       .filter((sr) => !teachingRoomIds.has(sr.id))
-      .map((sr) => ({
-        ...sr,
-        updated_at: new Date().toISOString(),
-      })),
+      .map((sr) => {
+        const existing = existingMap.get(sr.id);
+        return {
+          ...sr,
+          official_details: {
+            ...sr.official_details,
+            ...(existing?.official_details ?? {}),
+          },
+          updated_at: new Date().toISOString(),
+        };
+      }),
   ];
 
   if (roomsToUpsert.length > 0) {
@@ -146,11 +163,33 @@ export async function runEthScrapeBatch(
   supabase: SupabaseClient,
   options: EthScrapeBatchOptions = {}
 ): Promise<EthScrapeBatchSummary> {
-  const batchSize = options.batchSize ?? 50;
+  const batchSize = options.batchSize ?? 65;
   const delayMs = Math.max(1000, options.delayMs ?? 1200);
   const maxRuntimeMs = options.maxRuntimeMs ?? 240_000;
-  const cohortHours = options.cohortHours ?? 30;
+  const cohortHours = options.cohortHours ?? 20;
   const startTimeMs = Date.now();
+
+  // Concurrency guard: never run two ETH scrape batches simultaneously
+  const activeCutoffIso = new Date(startTimeMs - 5 * 60_000).toISOString();
+  const { count: activeCount } = await supabase
+    .from('scrape_runs')
+    .select('id', { count: 'exact', head: true })
+    .eq('source', 'eth_rauminfo')
+    .eq('verdict', 'running')
+    .gte('started_at', activeCutoffIso);
+
+  if (activeCount && activeCount > 0) {
+    return {
+      runId: 0,
+      verdict: 'ok',
+      roomsAttempted: 0,
+      roomsSucceeded: 0,
+      roomsFailed: 0,
+      bookingsWritten: 0,
+      errors: [],
+      remainingDueInQueue: 0,
+    };
+  }
 
   // Create scrape_runs entry
   const { data: runRow, error: runInitErr } = await supabase
@@ -357,6 +396,10 @@ export async function runEthScrapeBatch(
           .eq('room_id', res.roomId);
       }
     }
+
+    // Prune expired historical bookings that ended more than 48 hours ago so public.bookings stays lean
+    const retentionCutoffIso = new Date(startTimeMs - 48 * 3600_000).toISOString();
+    await supabase.from('bookings').delete().lt('end_time', retentionCutoffIso);
 
     const { count: remainingDue } = await supabase
       .from('scrape_queue')

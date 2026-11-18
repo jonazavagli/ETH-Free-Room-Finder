@@ -59,7 +59,7 @@ async function main(): Promise<void> {
     batchSize,
     delayMs: 1200,
     buildingFilter,
-    cohortHours: 30,
+    cohortHours: 20,
   });
 
   console.log('3. Scrape batch completed:', JSON.stringify(summary, null, 2));

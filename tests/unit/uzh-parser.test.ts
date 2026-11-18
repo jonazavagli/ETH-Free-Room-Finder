@@ -86,4 +86,21 @@ describe('UZH 3vrooms & Study Areas Parser (Offline Fixture Tests)', () => {
       parseUzh3vroomsCalendarPayload({ wrongKey: [] }, 'Zentrum', '2026-11-16T03:00:00.000Z')
     ).toThrow();
   });
+
+  it('excludes catering/mensa surfaces anywhere in the title', () => {
+    const payload = {
+      RessourceList: [
+        { Id: 1, Title: 'UZH Mensa Zentrum (200 Plätze)', BlockList: [] },
+        { Id: 2, Title: 'Obere Mensa Eventfläche', BlockList: [] },
+        { Id: 3, Title: 'KOL-F-101 (120 Plätze)', BlockList: [] },
+      ],
+    };
+    const { rooms } = parseUzh3vroomsCalendarPayload(
+      payload,
+      'Zentrum',
+      '2026-11-16T03:00:00.000Z'
+    );
+    expect(rooms).toHaveLength(1);
+    expect(rooms[0]?.id).toBe('UZH:KOL-F-101');
+  });
 });

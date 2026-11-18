@@ -103,11 +103,35 @@ export const ETH_BUILDING_METADATA: Record<
     lat: 47.37873,
     lng: 8.54745,
   },
+  RZ: {
+    name: 'Rechenzentrum (RZ)',
+    address: 'Clausiusstrasse 59, 8092 Zürich',
+    lat: 47.38028,
+    lng: 8.5469,
+  },
   Rz: {
     name: 'Rechenzentrum (RZ)',
     address: 'Clausiusstrasse 59, 8092 Zürich',
     lat: 47.38028,
     lng: 8.5469,
+  },
+  ETA: {
+    name: 'ETA (Gloriastrasse 35)',
+    address: 'Gloriastrasse 35, 8092 Zürich',
+    lat: 47.3772,
+    lng: 8.5529,
+  },
+  LFV: {
+    name: 'LFV (Schmelzbergstrasse 11)',
+    address: 'Schmelzbergstrasse 11, 8092 Zürich',
+    lat: 47.37835,
+    lng: 8.55045,
+  },
+  ZUE: {
+    name: 'ZUE (Zürichbergstrasse 18)',
+    address: 'Zürichbergstrasse 18, 8032 Zürich',
+    lat: 47.37465,
+    lng: 8.5543,
   },
   SOE: {
     name: 'SOE (Sonneggstrasse 28)',
@@ -182,10 +206,58 @@ export const ETH_BUILDING_METADATA: Record<
     lng: 8.5055,
   },
   HPR: {
-    name: 'HPR ( Wolfgang-Pauli-Strasse 14)',
+    name: 'HPR (Wolfgang-Pauli-Strasse 14)',
     address: 'Wolfgang-Pauli-Strasse 14, 8093 Zürich',
     lat: 47.4079,
     lng: 8.5076,
+  },
+  HIF: {
+    name: 'HIF (Laura-Hezner-Weg 7)',
+    address: 'Laura-Hezner-Weg 7, 8093 Zürich',
+    lat: 47.40875,
+    lng: 8.50485,
+  },
+  HPF: {
+    name: 'HPF (Otto-Stern-Weg 3)',
+    address: 'Otto-Stern-Weg 3, 8093 Zürich',
+    lat: 47.40775,
+    lng: 8.5097,
+  },
+  HPL: {
+    name: 'HPL (Otto-Stern-Weg 7)',
+    address: 'Otto-Stern-Weg 7, 8093 Zürich',
+    lat: 47.4067,
+    lng: 8.51055,
+  },
+  HPM: {
+    name: 'HPM (Otto-Stern-Weg 7)',
+    address: 'Otto-Stern-Weg 7, 8093 Zürich',
+    lat: 47.40645,
+    lng: 8.5111,
+  },
+  Y17: {
+    name: 'Irchel Bau 17 (Y17)',
+    address: 'Winterthurerstrasse 190, 8057 Zürich',
+    lat: 47.3982,
+    lng: 8.551,
+  },
+  Y55: {
+    name: 'Irchel Bau 55 (Y55)',
+    address: 'Winterthurerstrasse 190, 8057 Zürich',
+    lat: 47.3993,
+    lng: 8.5517,
+  },
+  FMG: {
+    name: 'Lindau-Eschikon (FMG)',
+    address: 'Eschikon 33, 8315 Lindau',
+    lat: 47.4488,
+    lng: 8.6822,
+  },
+  SLA: {
+    name: 'Schwerzenbach (SLA)',
+    address: 'Schorenstrasse 16, 8603 Schwerzenbach',
+    lat: 47.3827,
+    lng: 8.6575,
   },
   ONA: {
     name: 'ONA (Neunbrunnenstrasse 50)',
@@ -488,10 +560,12 @@ export function normalizeEthCampus(
 ): string {
   const loc = (rawLocationName ?? '').trim();
   if (loc.includes('Hönggerberg')) return 'Hönggerberg';
+  if (loc.includes('Universität') || loc.includes('Irchel')) return 'Irchel';
   if (loc.includes('Zentrum')) return 'Zentrum';
   if (loc.includes('Oerlikon')) return 'Oerlikon';
   if (loc.includes('Basel')) return 'Basel';
   if (area === 'H') return 'Hönggerberg';
+  if (area === 'Y') return 'Irchel';
   if (area === 'Z') return 'Zentrum';
   if (area === 'O') return 'Oerlikon';
   return loc || 'Zentrum';
@@ -655,6 +729,7 @@ export async function fetchEthRoomsList(): Promise<ParsedEthRoomsAndBuildings> {
       'User-Agent': getPoliteUserAgent(),
       Accept: 'application/json',
     },
+    signal: AbortSignal.timeout(15000),
   });
   if (!response.ok) {
     throw new Error(`ETH /v2/rooms HTTP ${response.status}: ${response.statusText}`);
@@ -680,6 +755,7 @@ export async function fetchEthRoomAllocations(
       'User-Agent': getPoliteUserAgent(),
       Accept: 'application/json',
     },
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!response.ok) {

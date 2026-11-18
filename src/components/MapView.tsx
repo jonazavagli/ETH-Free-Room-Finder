@@ -131,11 +131,7 @@ export function MapView({ evaluatedRooms, occupancyByKey, searchQueryString }: M
 
     if (buildingGroups.length === 0) return;
 
-    const bounds = new maplibregl.LngLatBounds();
-
     for (const group of buildingGroups) {
-      bounds.extend([group.lng, group.lat]);
-
       const btn = document.createElement('button');
       btn.type = 'button';
       const isSelected = group.buildingId === selectedBuildingId;
@@ -150,6 +146,11 @@ export function MapView({ evaluatedRooms, occupancyByKey, searchQueryString }: M
 
       btn.addEventListener('click', () => {
         setSelectedBuildingId(group.buildingId);
+        map.flyTo({
+          center: [group.lng, group.lat],
+          zoom: Math.max(map.getZoom(), 15.5),
+          duration: 400,
+        });
       });
 
       const marker = new maplibregl.Marker({ element: btn, anchor: 'center' })
@@ -158,6 +159,12 @@ export function MapView({ evaluatedRooms, occupancyByKey, searchQueryString }: M
 
       markersRef.current.push(marker);
     }
+  }, [buildingGroups, selectedBuildingId]);
+
+  // Fit bounds only when the set of matching buildings changes (not when clicking an individual pin)
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || buildingGroups.length === 0) return;
 
     if (buildingGroups.length === 1) {
       map.flyTo({
@@ -165,14 +172,18 @@ export function MapView({ evaluatedRooms, occupancyByKey, searchQueryString }: M
         zoom: 15.5,
         duration: 500,
       });
-    } else if (buildingGroups.length > 1) {
+    } else {
+      const bounds = new maplibregl.LngLatBounds();
+      for (const group of buildingGroups) {
+        bounds.extend([group.lng, group.lat]);
+      }
       try {
         map.fitBounds(bounds, { padding: 55, maxZoom: 15.5, duration: 500 });
       } catch {
         // Ignore fitBounds errors before layout
       }
     }
-  }, [buildingGroups, selectedBuildingId]);
+  }, [buildingGroups]);
 
   const selectedGroup = useMemo(
     () => buildingGroups.find((g) => g.buildingId === selectedBuildingId) ?? null,

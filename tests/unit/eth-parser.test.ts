@@ -128,4 +128,35 @@ describe('ETH Rauminfo Parser (Offline Fixture Tests)', () => {
     expect(deptDetails.is_departmental_room).toBe(true);
     expect(deptDetails.managing_department).toBe('Departement Mathematik');
   });
+
+  it('assigns coordinates to RZ, HIF, and Y17 buildings and normalizes Zürich Universität to Irchel', () => {
+    const sample = [
+      {
+        id: 'RZ F 21',
+        building: 'RZ',
+        floor: 'F',
+        room: '21',
+        seats: 36,
+        type: 'Seminarraum',
+        locationName: 'Zürich Zentrum',
+      },
+      {
+        id: 'Y17 M 05',
+        building: 'Y17',
+        floor: 'M',
+        room: '05',
+        seats: 120,
+        type: 'Hörsaal',
+        locationName: 'Zürich Universität',
+      },
+    ];
+    const { buildings, rooms } = parseEthRoomsPayload(sample);
+    const rz = buildings.find((b) => b.code === 'RZ');
+    const y17 = buildings.find((b) => b.code === 'Y17');
+    expect(rz?.lat).not.toBeNull();
+    expect(rz?.lng).not.toBeNull();
+    expect(y17?.campus).toBe('Irchel');
+    expect(y17?.lat).not.toBeNull();
+    expect(rooms.find((r) => r.building_code === 'Y17')?.campus).toBe('Irchel');
+  });
 });
