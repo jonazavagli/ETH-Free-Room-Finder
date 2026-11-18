@@ -9,6 +9,8 @@ import {
 } from '@/lib/contributions';
 import { DetailName, DetailReportRow, Room } from '@/types/domain';
 
+export const preferredRegion = 'fra1';
+
 const DetailReportBodySchema = z.object({
   detailName: z.enum(['outlets', 'board', 'desk_type', 'lighting', 'noise']),
   detailValue: z.string().trim().min(1).max(40),

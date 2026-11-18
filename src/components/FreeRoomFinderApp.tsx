@@ -186,57 +186,76 @@ export function FreeRoomFinderApp() {
   }, [searchParams]);
 
   // Fetch room & booking catalog from /api/rooms and live occupancy from /api/occupancy
-  const fetchRoomsData = useCallback(async (simulateStale: boolean) => {
-    try {
-      const [res, occRes] = await Promise.all([
-        fetch(`/api/rooms${simulateStale ? '?simulateStale=1' : ''}`),
-        fetch('/api/occupancy').catch(() => null),
-      ]);
-      if (occRes && occRes.ok) {
-        const occJson = (await occRes.json()) as {
-          ok: boolean;
-          occupancyByKey?: Record<string, LiveOccupancyItem>;
-        };
-        if (occJson.ok && occJson.occupancyByKey) {
-          setOccupancyByKey(occJson.occupancyByKey);
-        }
-      }
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-      const data = (await res.json()) as ApiRoomsPayload;
-      if (data.ok) {
-        const withCacheTime: ApiRoomsPayload = {
-          ...data,
-          cachedAtIso: new Date().toISOString(),
-        };
-        setPayload(withCacheTime);
-        setIsOfflineCache(false);
-        try {
-          localStorage.setItem(STORAGE_CACHE_KEY, JSON.stringify(withCacheTime));
-        } catch {
-          // Ignore quota errors
-        }
-      }
-    } catch {
-      // Offline fallback: read last saved payload from localStorage
+  const inFlightCatalogRef = useRef<{ simulateStale: boolean; promise: Promise<void> } | null>(
+    null
+  );
+  const loadedStaleFlagRef = useRef<boolean | null>(null);
+
+  const fetchRoomsData = useCallback((simulateStale: boolean): Promise<void> => {
+    if (inFlightCatalogRef.current?.simulateStale === simulateStale) {
+      return inFlightCatalogRef.current.promise;
+    }
+
+    const promise = (async () => {
       try {
-        const raw = localStorage.getItem(STORAGE_CACHE_KEY);
-        if (raw) {
-          const cached = JSON.parse(raw) as ApiRoomsPayload;
-          setPayload(cached);
-          setIsOfflineCache(true);
+        const [res, occRes] = await Promise.all([
+          fetch(`/api/rooms${simulateStale ? '?simulateStale=1' : ''}`),
+          fetch('/api/occupancy').catch(() => null),
+        ]);
+        if (occRes && occRes.ok) {
+          const occJson = (await occRes.json()) as {
+            ok: boolean;
+            occupancyByKey?: Record<string, LiveOccupancyItem>;
+          };
+          if (occJson.ok && occJson.occupancyByKey) {
+            setOccupancyByKey(occJson.occupancyByKey);
+          }
+        }
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        const data = (await res.json()) as ApiRoomsPayload;
+        if (data.ok) {
+          const withCacheTime: ApiRoomsPayload = {
+            ...data,
+            cachedAtIso: new Date().toISOString(),
+          };
+          setPayload(withCacheTime);
+          loadedStaleFlagRef.current = simulateStale;
+          setIsOfflineCache(false);
+          try {
+            localStorage.setItem(STORAGE_CACHE_KEY, JSON.stringify(withCacheTime));
+          } catch {
+            // Ignore quota errors
+          }
         }
       } catch {
-        // Ignore
+        // Offline fallback: read last saved payload from localStorage
+        try {
+          const raw = localStorage.getItem(STORAGE_CACHE_KEY);
+          if (raw) {
+            const cached = JSON.parse(raw) as ApiRoomsPayload;
+            setPayload(cached);
+            loadedStaleFlagRef.current = simulateStale;
+            setIsOfflineCache(true);
+          }
+        } catch {
+          // Ignore
+        }
+      } finally {
+        setIsLoadingCatalog(false);
+        if (inFlightCatalogRef.current?.simulateStale === simulateStale) {
+          inFlightCatalogRef.current = null;
+        }
       }
-    } finally {
-      setIsLoadingCatalog(false);
-    }
+    })();
+
+    inFlightCatalogRef.current = { simulateStale, promise };
+    return promise;
   }, []);
 
   useEffect(() => {
-    fetchRoomsData(filters.simulateStale);
+    void fetchRoomsData(filters.simulateStale);
   }, [fetchRoomsData, filters.simulateStale]);
 
   // Sync filters to URL and localStorage when searching or changing filters after search
@@ -298,11 +317,13 @@ export function FreeRoomFinderApp() {
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSearching(true);
     setSearchTimestampIso(new Date().toISOString());
-    await fetchRoomsData(filters.simulateStale);
+    if (!payload || loadedStaleFlagRef.current !== filters.simulateStale) {
+      setIsSearching(true);
+      await fetchRoomsData(filters.simulateStale);
+      setIsSearching(false);
+    }
     setHasSearched(true);
-    setIsSearching(false);
     syncFiltersToUrlAndStorage(filters, true);
   };
 
@@ -1034,6 +1055,16 @@ export function FreeRoomFinderApp() {
                         <span className="rounded bg-[var(--bg-muted)] px-2 py-0.5 font-medium text-[var(--text-secondary)]">
                           {item.room.source_room_type}
                         </span>
+                        {item.room.official_details.is_departmental_room && (
+                          <span
+                            title={t.departmentalRoomNotice(
+                              item.room.official_details.managing_department
+                            )}
+                            className="rounded bg-[var(--status-unknown-bg)] text-[var(--status-unknown-text)] border border-[var(--status-unknown-border)] px-2 py-0.5 font-semibold"
+                          >
+                            {t.departmentalRoomBadge}
+                          </span>
+                        )}
                         <span>{t.seatsCount(item.room.capacity)}</span>
                         {item.room.live_occupancy_key && (
                           <LiveOccupancyBadge

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import {
   Activity,
+  AlertTriangle,
   ArrowLeft,
   Building2,
   CalendarClock,
@@ -412,6 +413,17 @@ export default function RoomDetailPage() {
         </div>
 
         {/* Key Metadata Grid */}
+        {room.official_details.is_departmental_room && (
+          <div
+            role="note"
+            data-testid="departmental-room-warning"
+            className="rounded-xl border border-[var(--status-unknown-border)] bg-[var(--status-unknown-bg)] text-[var(--status-unknown-text)] px-4 py-3 text-xs font-medium flex items-start gap-2.5"
+          >
+            <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+            <span>{t.departmentalRoomNotice(room.official_details.managing_department)}</span>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-[var(--border-color)]">
           <div className="rounded-xl bg-[var(--bg-muted)] p-3">
             <div className="text-xs text-[var(--text-muted)] flex items-center gap-1">

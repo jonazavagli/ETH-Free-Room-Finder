@@ -3,6 +3,7 @@ import { createServiceRoleSupabaseClient } from '@/lib/supabase';
 import { runEthScrapeBatch } from '@/lib/scrapers/nightly-eth';
 import { syncUzhStaticStudyRooms } from '@/lib/scrapers/nightly-uzh';
 
+export const preferredRegion = 'fra1';
 export const maxDuration = 300; // Vercel Hobby max duration (300 seconds)
 
 export async function GET(request: NextRequest): Promise<NextResponse> {

@@ -104,6 +104,7 @@ describe('ETH Rauminfo Parser (Offline Fixture Tests)', () => {
     const details = parseEthRoomDetailPayload(rawJson);
 
     expect(details.official_photos_checked).toBe(true);
+    expect(details.is_departmental_room).toBe(false);
     expect(details.outlets).toBe('few');
     expect(details.board).toBe('blackboard');
     expect(details.desk_type).toBe('fixed');
@@ -116,5 +117,15 @@ describe('ETH Rauminfo Parser (Offline Fixture Tests)', () => {
       'https://ethz.ch/bin/ethz/roominfo?path=/v2/files/650301'
     );
     expect(details.official_photos?.[0]?.alt).toContain('Vorlesungssaal');
+
+    const deptSample = {
+      id: 'HG G 019.1',
+      rectorateResponsibility: '0',
+      responsible: { unit: 'Departement Mathematik' },
+      tabs: [],
+    };
+    const deptDetails = parseEthRoomDetailPayload(deptSample);
+    expect(deptDetails.is_departmental_room).toBe(true);
+    expect(deptDetails.managing_department).toBe('Departement Mathematik');
   });
 });

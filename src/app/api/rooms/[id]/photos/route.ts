@@ -5,6 +5,8 @@ import { hashDeviceToken } from '@/lib/contributions';
 import { sanitizeRoomPhotoBuffer } from '@/lib/photo-sanitizer';
 import { CommunityPhotoItem, Room } from '@/types/domain';
 
+export const preferredRegion = 'fra1';
+
 const MAX_PHOTOS_PER_ROOM_PER_HOUR = 3;
 const MAX_PHOTOS_PER_DAY = 8;
 

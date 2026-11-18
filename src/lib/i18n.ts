@@ -119,6 +119,8 @@ export interface Translations {
   photoUploadButton: string;
   photoUploading: string;
   communityLastUpdated: string;
+  departmentalRoomBadge: string;
+  departmentalRoomNotice: (dept?: string) => string;
   themeLight: string;
   themeDark: string;
   themeRetro: string;
@@ -294,6 +296,9 @@ export const translations: Record<Language, Translations> = {
     photoUploadButton: 'Add a room photo',
     photoUploading: 'Removing metadata & uploading...',
     communityLastUpdated: 'Last community report',
+    departmentalRoomBadge: 'Dept. room',
+    departmentalRoomNotice: (dept) =>
+      `Department-managed room${dept ? ` (${dept})` : ''}: internal department bookings or midterms booked outside central Rauminfo may not appear here.`,
     themeLight: 'Light',
     themeDark: 'Dark',
     themeRetro: 'Retro terminal',
@@ -473,6 +478,9 @@ export const translations: Record<Language, Translations> = {
     photoUploadButton: 'Raumfoto hinzufügen',
     photoUploading: 'Metadaten entfernen & hochladen...',
     communityLastUpdated: 'Letzte Community-Meldung',
+    departmentalRoomBadge: 'Institutsraum',
+    departmentalRoomNotice: (dept) =>
+      `Departementsraum${dept ? ` (${dept})` : ''}: interne Departementsbuchungen oder Zwischenprüfungen ausserhalb des zentralen Rauminfo sind hier evtl. nicht sichtbar.`,
     themeLight: 'Hell',
     themeDark: 'Dunkel',
     themeRetro: 'Retro-Terminal',

@@ -264,6 +264,13 @@ export const EthAllocationListRawSchema = z.array(EthAllocationRawSchema);
  */
 export const EthRoomDetailRawSchema = z.object({
   id: z.string().min(1),
+  rectorateResponsibility: z.union([z.string(), z.number(), z.null()]).optional(),
+  responsible: z
+    .object({
+      unit: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   tabs: z
     .array(
       z.object({
@@ -311,6 +318,24 @@ export function parseEthRoomDetailPayload(rawJson: unknown): Partial<RoomOfficia
     official_photos_checked: true,
     official_photos: [],
   };
+
+  if (
+    validated.rectorateResponsibility !== undefined &&
+    validated.rectorateResponsibility !== null &&
+    String(validated.rectorateResponsibility).trim() === '0'
+  ) {
+    details.is_departmental_room = true;
+    const unit = validated.responsible?.unit?.trim();
+    if (unit) {
+      details.managing_department = unit;
+    }
+  } else if (
+    validated.rectorateResponsibility !== undefined &&
+    validated.rectorateResponsibility !== null &&
+    String(validated.rectorateResponsibility).trim() === '1'
+  ) {
+    details.is_departmental_room = false;
+  }
 
   let hasBlackboard = false;
   let hasWhiteboard = false;

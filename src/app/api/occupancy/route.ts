@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { fetchEthStudySpacesAvailability } from '@/lib/scrapers/eth-studyspaces';
 import { LiveOccupancyItem } from '@/types/domain';
 
+export const preferredRegion = 'fra1';
+
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 let cachedOccupancy: {

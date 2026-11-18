@@ -19,6 +19,8 @@ import {
   RoomCommunitySummary,
 } from '@/types/domain';
 
+export const preferredRegion = 'fra1';
+
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -49,15 +51,16 @@ export async function GET(
     if (
       room.institution === 'ETH' &&
       room.official_url?.includes('rauminfo/raumdetails.html') &&
-      !room.official_details.official_photos_checked
+      (!room.official_details.official_photos_checked ||
+        room.official_details.is_departmental_room === undefined)
     ) {
       try {
         const fetchedOfficial = await fetchEthRoomOfficialDetails(room.display_name);
         const mergedDetails = {
-          ...fetchedOfficial,
-          // Keep existing official_details fields (like study space outlets/opening_hours) if already set
           ...room.official_details,
-          official_photos: fetchedOfficial.official_photos ?? [],
+          ...fetchedOfficial,
+          official_photos:
+            fetchedOfficial.official_photos ?? room.official_details.official_photos ?? [],
           official_photos_checked: true,
         };
         const serviceSupabase = createServiceRoleSupabaseClient();

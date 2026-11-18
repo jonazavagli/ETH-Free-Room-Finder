@@ -39,6 +39,8 @@ export interface RoomOfficialDetails {
   study_area_name?: string;
   official_photos?: OfficialPhoto[];
   official_photos_checked?: boolean;
+  is_departmental_room?: boolean;
+  managing_department?: string;
 }
 
 export interface LiveOccupancyItem {

@@ -4,6 +4,8 @@ import { createServiceRoleSupabaseClient } from '@/lib/supabase';
 import { computeLockTrend, hashDeviceToken } from '@/lib/contributions';
 import { LockReportRow } from '@/types/domain';
 
+export const preferredRegion = 'fra1';
+
 const LockReportBodySchema = z.object({
   isLocked: z.boolean(),
   deviceToken: z.string().trim().min(12).max(128),
