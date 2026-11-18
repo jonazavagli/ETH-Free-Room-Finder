@@ -298,7 +298,7 @@ export const translations: Record<Language, Translations> = {
     communityLastUpdated: 'Last community report',
     departmentalRoomBadge: 'Dept. room',
     departmentalRoomNotice: (dept) =>
-      `Department-managed room${dept ? ` (${dept})` : ''}: internal department bookings or midterms booked outside central Rauminfo may not appear here.`,
+      `Department-managed room${dept ? ` (${dept})` : ''}: internal department bookings booked outside central Rauminfo may not appear here.`,
     themeLight: 'Light',
     themeDark: 'Dark',
     themeRetro: 'Retro terminal',
@@ -480,7 +480,7 @@ export const translations: Record<Language, Translations> = {
     communityLastUpdated: 'Letzte Community-Meldung',
     departmentalRoomBadge: 'Institutsraum',
     departmentalRoomNotice: (dept) =>
-      `Departementsraum${dept ? ` (${dept})` : ''}: interne Departementsbuchungen oder Zwischenprüfungen ausserhalb des zentralen Rauminfo sind hier evtl. nicht sichtbar.`,
+      `Departementsraum${dept ? ` (${dept})` : ''}: interne Departementsbuchungen ausserhalb des zentralen Rauminfo sind hier evtl. nicht sichtbar.`,
     themeLight: 'Hell',
     themeDark: 'Dunkel',
     themeRetro: 'Retro-Terminal',
